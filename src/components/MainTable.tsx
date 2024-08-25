@@ -12,40 +12,54 @@ import { Badge } from "./ui/badge";
 import { cn } from "@/lib/utils";
 import ViewMoreDialog from "./ViewMoreDialog";
 
-type Props = {};
+type Props = { data: { id: string; date: string; amount: string }[] };
 
-function MainTable({}: Props) {
+function MainTable({ data }: Props) {
   return (
     <Table>
       <TableCaption>A list of the latest transactions.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Tx ID</TableHead>
-          <TableHead>Sent</TableHead>
           <TableHead>Date</TableHead>
 
           <TableHead>Type</TableHead>
-          <TableHead>Amount</TableHead>
+          <TableHead>Amount ($ARS)</TableHead>
           <TableHead className="text-right">Proof</TableHead>
         </TableRow>
       </TableHeader>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((x) => {
-        return <MainTableBody key={x} type={x % 2 === 0 ? "in" : "out"} />;
+      {data.map((info, index) => {
+        return (
+          <MainTableBody
+            key={index + info.id}
+            date={info.date}
+            amount={info.amount}
+            id={info.id}
+          />
+        );
       })}
-      <MainTableBody type="in" />
     </Table>
   );
 }
 
 export default MainTable;
 
-const MainTableBody = ({ type }: { type: "in" | "out" }) => {
+const MainTableBody = ({
+  type = "in",
+  date,
+  amount,
+  id,
+}: {
+  type?: "in" | "out";
+  date: string;
+  amount: string;
+  id: string;
+}) => {
   return (
     <TableBody>
       <TableRow>
-        <TableCell className="font-medium">INV001</TableCell>
-        <TableCell>Paid</TableCell>
-        <TableCell>10-1-23</TableCell>
+        <TableCell className="font-medium">{id}</TableCell>
+        <TableCell>{date}</TableCell>
         <TableCell>
           <Badge
             variant="outline"
@@ -58,7 +72,7 @@ const MainTableBody = ({ type }: { type: "in" | "out" }) => {
             {type}
           </Badge>
         </TableCell>
-        <TableCell>$250.00</TableCell>
+        <TableCell>${amount}</TableCell>
         <TableCell className="text-right">
           <ViewMoreDialog>
             <Button variant={"link"}>view more</Button>
