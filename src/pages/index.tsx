@@ -86,10 +86,10 @@ export default function Home() {
       <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-3 gap-4  w-full md:h-[200px] items-stretch justify-stretch">
         <Card className="col-span-2 flex flex-col justify-center">
           <CardHeader className="pb-3">
-            <CardTitle>Welcome to OpenFlow! 🔍👌</CardTitle>
+            <CardTitle>Campaign: #TodoRojo 👹⚽️🏆</CardTitle>
             <CardDescription className="max-w-lg text-balance leading-relaxed">
-              A privacy-preserving solution for transparent transaction auditing
-              using zero-knowledge proofs.
+              Auditable campaign thanks to OpenFlow in September 2023 using
+              zero-knowledge proofs.
             </CardDescription>
           </CardHeader>
           <CardFooter>
