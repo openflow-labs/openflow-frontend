@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import CONTRACTABI from "../abis/contract.json"; // ABI
 
-const CONTRACT_ADDRESS = "0xe303c6a9af99155443d9a00a583169a1d6ea7f42"; // Dirección del contrato
+const CONTRACT_ADDRESS = "0xc2190225340fF87588785D451bba2304384Ae488"; // Dirección del contrato
 
 export const fetchEndpoint = async () => {
   try {
@@ -16,7 +16,7 @@ export const fetchEndpoint = async () => {
     );
 
     const _floor = 0;
-    const ceiling = 6;
+    const ceiling = 59;
     const uris = await contract.tokenURIBatch(_floor, ceiling);
 
     // Convertir URLs IPFS a HTTP
@@ -54,13 +54,13 @@ function transformData(
     ).value as string;
     const dateTimestamp = (
       itemArray.find((item) => item.trait_type === "Date") as Trait
-    ).value as number;
+    ).value as string;
     const amount = (
       itemArray.find((item) => item.trait_type === "Amount") as Trait
     ).value as string;
 
     // Convert timestamp to date string
-    const date = new Date(dateTimestamp).toLocaleDateString("en-GB");
+    const date = new Date(Number(dateTimestamp)).toLocaleDateString("en-GB");
 
     return { id, date, amount };
   });
