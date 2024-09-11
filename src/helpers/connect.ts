@@ -15,20 +15,28 @@ export const fetchEndpoint = async () => {
       provider
     );
 
+    console.log("contract :  ", contract);
+
     const _floor = 0;
     const ceiling = 59;
     const uris = await contract.tokenURIBatch(_floor, ceiling);
+    console.log("Uris :  ", uris);
 
     // Convertir URLs IPFS a HTTP
     const httpUris = uris.map(convertIpfsToHttp);
 
+    console.log("https :  ", httpUris);
+
     const fetchPromises = httpUris.map((uri: string) => fetchDataFromIPFS(uri));
     const results = await Promise.all(fetchPromises);
+    console.log("Results :  ", results);
 
     // Procesar los datos obtenidos
     const final = results.map((data, index) => {
       return data.attributes;
     });
+
+    console.log("Final :  ", final);
 
     return transformData(final);
   } catch (error) {
